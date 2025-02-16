@@ -9,7 +9,7 @@
 <body>
 
     <div class="yt-embed-holder" id="videoContainer">
-        <!-- 🎥 Google Drive Video Embed -->
+        <!-- 🎥 Google Drive Video Embed (Autoplay Enabled) -->
         <iframe id="videoPlayer" allowfullscreen></iframe>
 
         <!-- 🎬 Netflix-Style Title Info -->
@@ -88,7 +88,26 @@
         </ul>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        // 🎥 Google Drive Video Links
+        const videoLinks = {
+            1: "16gUkTsEspcONTTKLgc8xLH0vs6XYIjvF",
+            2: "14GlbAUKiWvQWeRoAr3yxmkmnWHyYkGyQ",
+            3: "1qbhy84QC1zoaXj2aZEyPo_4ItxODCkR2"
+        };
+
+        // 🎬 Load Episode & AutoPlay
+        function loadEpisode(ep) {
+            document.getElementById("videoPlayer").src = `https://drive.google.com/file/d/${videoLinks[ep]}/preview?autoplay=1`;
+            
+            // Highlight Active Episode
+            document.querySelectorAll(".episodes-panel li").forEach(btn => btn.classList.remove("active"));
+            document.querySelector(`[data-videoid="${videoLinks[ep]}"]`).classList.add("active");
+        }
+
+        // 🎥 Auto-Load First Episode
+        loadEpisode(1);
+    </script>
 
 </body>
 </html>

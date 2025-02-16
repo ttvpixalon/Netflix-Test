@@ -1,139 +1,127 @@
-const videoPlayer = document.getElementById("videoPlayer");
-const videoContainer = document.getElementById("videoContainer");
-const playPauseBtn = document.getElementById("playPause").querySelector("img");
-const volumeBtn = document.getElementById("volume").querySelector("img");
-const progress = document.getElementById("progress");
-const scrubber = document.getElementById("scrubber");
-const progressBar = document.getElementById("progressBar");
+document.addEventListener("DOMContentLoaded", function () {
+    const videoPlayer = document.getElementById("videoPlayer");
+    const episodesMenu = document.getElementById("episodesMenu");
+    const episodesBtn = document.getElementById("episodesBtn");
+    const progressBar = document.getElementById("progressBar");
+    const progress = document.getElementById("progress");
+    const playPauseBtn = document.getElementById("playPause").querySelector("img");
+    const volumeBtn = document.getElementById("volume").querySelector("img");
+    let currentEpisode = 1;
 
-// 🎥 Google Drive Video Links (Using Preview Mode)
-const videoLinks = {
-    1: "16gUkTsEspcONTTKLgc8xLH0vs6XYIjvF",
-    2: "14GlbAUKiWvQWeRoAr3yxmkmnWHyYkGyQ",
-    3: "1qbhy84QC1zoaXj2aZEyPo_4ItxODCkR2",
-    4: "1GJ-Mkv6zQ62zzndApaYjyqTAgnIz57O9",
-    5: "10ahpIiSxgmfREOo69UmYFVtMS_Ghsh_h",
-    6: "18Dl2dYkQbCnPWEs596ZCSRc_oIXEK0fQ",
-    7: "14GgIsy2WRlFq9kBwSET55kJIdbxwBOMM",
-    8: "1KDdiu8agRRh72XbrwwaRHEKUlW1KCBY8",
-    9: "1fch1Upb5mLqmgASR9Sj4dYtz-wovdqJv",
-    10: "1e5raClbsRyyeMwyapXrmTXbocVv0caiv",
-    11: "1PHqjhMdCTfOnWbW-qTWN-wPb6FqOlf1u",
-    12: "1zu_zCCuizN1lWtwRwZ9vMgOLB9BXLveM",
-};
+    // 🎥 Google Drive Video Links
+    const videoLinks = {
+        1: "16gUkTsEspcONTTKLgc8xLH0vs6XYIjvF",
+        2: "14GlbAUKiWvQWeRoAr3yxmkmnWHyYkGyQ",
+        3: "1qbhy84QC1zoaXj2aZEyPo_4ItxODCkR2",
+        4: "1GJ-Mkv6zQ62zzndApaYjyqTAgnIz57O9",
+        5: "10ahpIiSxgmfREOo69UmYFVtMS_Ghsh_h"
+    };
 
-// 🎬 Load Episode
-function loadEpisode(ep) {
-    videoPlayer.src = `https://drive.google.com/file/d/${videoLinks[ep]}/preview`;
+    // 🎬 Load Episode & AutoPlay
+    function loadEpisode(ep) {
+        if (!videoLinks[ep]) return;
+        currentEpisode = ep;
+        videoPlayer.src = `https://drive.google.com/file/d/${videoLinks[ep]}/preview`;
+        
+        // Highlight Active Episode
+        document.querySelectorAll(".episodes-panel li").forEach(btn => btn.classList.remove("active"));
+        document.querySelector(`[data-videoid="${videoLinks[ep]}"]`)?.classList.add("active");
 
-    videoPlayer.play();
-
-    // Highlight active episode
-    document.querySelectorAll(".episode-list li").forEach((btn) =>
-        btn.classList.remove("active")
-    );
-    document.getElementById(`episode-${ep}`).classList.add("active");
-
-    // Update Title Info
-    document.querySelector(".video-info h1").innerText = "SAKAMOTO DAYS";
-    document.querySelector(
-        ".video-info .episode-title"
-    ).innerText = `Episode ${ep}`;
-    document.querySelector(".video-info .description").innerText =
-        "Description for episode " + ep;
-
-    // Hide controls initially (like Netflix)
-    videoContainer.classList.add("paused");
-    setTimeout(() => videoContainer.classList.remove("paused"), 3000);
-}
-
-// 📌 Play/Pause Function
-function togglePlayPause() {
-    if (videoPlayer.paused) {
-        videoPlayer.play();
-        playPauseBtn.src = "pause-48.png";
-        videoContainer.classList.remove("paused");
-    } else {
-        videoPlayer.pause();
-        playPauseBtn.src = "play-48.png";
-        videoContainer.classList.add("paused");
+        // Update Title Info
+        document.querySelector(".video-info .episode-title").innerText = `Episode ${ep}`;
     }
-}
 
-// ⏪ Rewind 10 Seconds
-document.getElementById("rewind").addEventListener("click", () => {
-    videoPlayer.currentTime = Math.max(videoPlayer.currentTime - 10, 0);
-});
+    // 🎥 Auto-Load First Episode
+    loadEpisode(1);
 
-// ⏩ Fast Forward 10 Seconds
-document.getElementById("fastForward").addEventListener("click", () => {
-    videoPlayer.currentTime = Math.min(
-        videoPlayer.currentTime + 10,
-        videoPlayer.duration
-    );
-});
+    // 🎮 Play/Pause Button
+    document.getElementById("playPause").addEventListener("click", function () {
+        if (videoPlayer.paused) {
+            videoPlayer.play();
+            playPauseBtn.src = "pause-48.png";
+        } else {
+            videoPlayer.pause();
+            playPauseBtn.src = "play-48.png";
+        }
+    });
 
-// 🔊 Volume Mute/Unmute
-document.getElementById("volume").addEventListener("click", function () {
-    videoPlayer.muted = !videoPlayer.muted;
-    volumeBtn.src = videoPlayer.muted ? "mute.png" : "volume.png";
-});
+    // ⏪ Rewind 10s
+    document.getElementById("rewind").addEventListener("click", function () {
+        videoPlayer.currentTime = Math.max(videoPlayer.currentTime - 10, 0);
+    });
 
-// 📊 Progress Bar Update (Smooth & Responsive)
-function updateProgressBar() {
-    setInterval(() => {
+    // ⏩ Fast Forward 10s
+    document.getElementById("fastForward").addEventListener("click", function () {
+        videoPlayer.currentTime = Math.min(videoPlayer.currentTime + 10, videoPlayer.duration);
+    });
+
+    // 🔊 Mute/Unmute Toggle
+    document.getElementById("volume").addEventListener("click", function () {
+        videoPlayer.muted = !videoPlayer.muted;
+        volumeBtn.src = videoPlayer.muted ? "mute.png" : "volume.png";
+    });
+
+    // 📊 Progress Bar Update
+    function updateProgressBar() {
+        if (!videoPlayer.duration) return;
         let percentage = (videoPlayer.currentTime / videoPlayer.duration) * 100;
         progress.style.width = `${percentage}%`;
-        scrubber.style.left = `calc(${percentage}% - 6px)`;
-    }, 500);
-}
-
-// 🎯 Handle Scrubbing (Dragging Progress Bar)
-let isDragging = false;
-progressBar.addEventListener("mousedown", (event) => {
-    isDragging = true;
-    seek(event);
-});
-document.addEventListener("mouseup", () => (isDragging = false));
-document.addEventListener("mousemove", (event) => {
-    if (isDragging) seek(event);
-});
-
-function seek(event) {
-    let rect = progressBar.getBoundingClientRect();
-    let percentage = Math.max(
-        0,
-        Math.min(1, (event.clientX - rect.left) / rect.width)
-    );
-    videoPlayer.currentTime = percentage * videoPlayer.duration;
-}
-
-// 🖥 Fullscreen Toggle
-document.getElementById("fullscreen").addEventListener("click", function () {
-    if (!document.fullscreenElement) {
-        videoContainer.requestFullscreen();
-    } else {
-        document.exitFullscreen();
     }
+    setInterval(updateProgressBar, 500);
+
+    // 📺 Toggle Episodes Menu
+    episodesBtn.addEventListener("click", function () {
+        episodesMenu.classList.toggle("active");
+    });
+
+    // 🔄 Load Episode on Click
+    document.querySelectorAll(".episodes-panel li").forEach((episode) => {
+        episode.addEventListener("click", function () {
+            let episodeId = this.dataset.videoid;
+            let epNumber = Object.keys(videoLinks).find(key => videoLinks[key] === episodeId);
+            loadEpisode(epNumber);
+            episodesMenu.classList.remove("active");
+        });
+    });
+
+    // ⏭ Next Episode
+    document.getElementById("next").addEventListener("click", function () {
+        let nextEpisode = currentEpisode + 1;
+        if (videoLinks[nextEpisode]) {
+            loadEpisode(nextEpisode);
+        }
+    });
+
+    // 🖥 Fullscreen Toggle
+    document.getElementById("fullscreen").addEventListener("click", function () {
+        if (!document.fullscreenElement) {
+            videoPlayer.requestFullscreen();
+        } else {
+            document.exitFullscreen();
+        }
+    });
+
+    /* 🛑 Hide Controls on Idle */
+    let idleTimer;
+    function showControls() {
+        document.getElementById("videoContainer").classList.remove("hide-controls");
+        resetIdleTimer();
+    }
+
+    function hideControls() {
+        document.getElementById("videoContainer").classList.add("hide-controls");
+    }
+
+    function resetIdleTimer() {
+        clearTimeout(idleTimer);
+        idleTimer = setTimeout(hideControls, 3000);
+    }
+
+    // Detect User Activity
+    function handleIdleState() {
+        document.getElementById("videoContainer").addEventListener("mousemove", showControls);
+        document.getElementById("videoContainer").addEventListener("mouseleave", hideControls);
+    }
+
+    handleIdleState();
 });
-
-/* 🛑 Hide Controls on Idle */
-let idleTimer;
-function showControls() {
-    videoContainer.classList.remove("hide-controls");
-    resetIdleTimer();
-}
-function hideControls() {
-    videoContainer.classList.add("hide-controls");
-}
-function resetIdleTimer() {
-    clearTimeout(idleTimer);
-    idleTimer = setTimeout(hideControls, 3000);
-}
-function handleIdleState() {
-    videoContainer.addEventListener("mousemove", showControls);
-    videoContainer.addEventListener("mouseleave", hideControls);
-}
-
-// Load first episode by default
-loadEpisode(1);
