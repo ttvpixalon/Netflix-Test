@@ -9,11 +9,10 @@
 <body>
 
     <div class="yt-embed-holder" id="videoContainer">
-        <video id="videoPlayer" controls autoplay>
-            <source src="" type="video/mp4">
-        </video>
+        <!-- 🎥 Google Drive Video Embed -->
+        <iframe id="videoPlayer" allowfullscreen></iframe>
 
-        <!-- Netflix-Style Title Info -->
+        <!-- 🎬 Netflix-Style Title Info -->
         <div class="video-info">
             <p class="watching">You're watching</p>
             <h1>SAKAMOTO DAYS</h1>
@@ -25,7 +24,7 @@
             </p>
         </div>
 
-        <!-- Custom Video Controls -->
+        <!-- 🎮 Custom Video Controls -->
         <div class="controls">
             <div class="controls-left">
                 <button id="playPause">
@@ -55,13 +54,41 @@
             </div>
         </div>
 
-        <!-- Progress Bar -->
+        <!-- 📊 Progress Bar -->
         <div class="progress-bar-container" id="progressBar">
             <div class="progress" id="progress"></div>
         </div>
     </div>
 
-<script src="script.js"></script>
+    <!-- 📺 Episodes Panel -->
+    <div id="episodesMenu" class="episodes-panel">
+        <h2>SAKAMOTO DAYS</h2>
+        <ul>
+            <li data-videoid="16gUkTsEspcONTTKLgc8xLH0vs6XYIjvF">
+                <span class="episode-number">1</span>
+                <div class="episode-info">
+                    <h3>The Legendary Hit Man</h3>
+                    <p>Sakamoto enjoys a quiet life in retirement... but an old colleague demands he return to the assassin world.</p>
+                </div>
+            </li>
+            <li data-videoid="14GlbAUKiWvQWeRoAr3yxmkmnWHyYkGyQ">
+                <span class="episode-number">2</span>
+                <div class="episode-info">
+                    <h3>Vs. Son Hee and Bacho</h3>
+                    <p>The action intensifies as Sakamoto faces new challenges from unexpected enemies.</p>
+                </div>
+            </li>
+            <li data-videoid="1qbhy84QC1zoaXj2aZEyPo_4ItxODCkR2">
+                <span class="episode-number">3</span>
+                <div class="episode-info">
+                    <h3>Welcome to Sugar Park</h3>
+                    <p>A thrilling encounter unfolds as Sakamoto enters new territory filled with dangers.</p>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <script src="script.js"></script>
 
 </body>
 </html>
