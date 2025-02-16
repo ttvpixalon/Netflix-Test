@@ -6,30 +6,41 @@ const progress = document.getElementById("progress");
 const scrubber = document.getElementById("scrubber");
 const progressBar = document.getElementById("progressBar");
 
-// 🎥 Google Drive Video Links
+// 🎥 Google Drive Video Links (Using Preview Mode)
 const videoLinks = {
-    1: '16gUkTsEspcONTTKLgc8xLH0vs6XYIjvF',
-    2: '14GlbAUKiWvQWeRoAr3yxmkmnWHyYkGyQ',
-    3: '1qbhy84QC1zoaXj2aZEyPo_4ItxODCkR2',
-    4: '1GJ-Mkv6zQ62zzndApaYjyqTAgnIz57O9',
-    5: '10ahpIiSxgmfREOo69UmYFVtMS_Ghsh_h',
-    6: '18Dl2dYkQbCnPWEs596ZCSRc_oIXEK0fQ',
-    7: '14GgIsy2WRlFq9kBwSET55kJIdbxwBOMM',
-    8: '1KDdiu8agRRh72XbrwwaRHEKUlW1KCBY8',
-    9: '1fch1Upb5mLqmgASR9Sj4dYtz-wovdqJv',
-    10: '1e5raClbsRyyeMwyapXrmTXbocVv0caiv',
-    11: '1PHqjhMdCTfOnWbW-qTWN-wPb6FqOlf1u',
-    12: '1zu_zCCuizN1lWtwRwZ9vMgOLB9BXLveM'
+    1: "16gUkTsEspcONTTKLgc8xLH0vs6XYIjvF",
+    2: "14GlbAUKiWvQWeRoAr3yxmkmnWHyYkGyQ",
+    3: "1qbhy84QC1zoaXj2aZEyPo_4ItxODCkR2",
+    4: "1GJ-Mkv6zQ62zzndApaYjyqTAgnIz57O9",
+    5: "10ahpIiSxgmfREOo69UmYFVtMS_Ghsh_h",
+    6: "18Dl2dYkQbCnPWEs596ZCSRc_oIXEK0fQ",
+    7: "14GgIsy2WRlFq9kBwSET55kJIdbxwBOMM",
+    8: "1KDdiu8agRRh72XbrwwaRHEKUlW1KCBY8",
+    9: "1fch1Upb5mLqmgASR9Sj4dYtz-wovdqJv",
+    10: "1e5raClbsRyyeMwyapXrmTXbocVv0caiv",
+    11: "1PHqjhMdCTfOnWbW-qTWN-wPb6FqOlf1u",
+    12: "1zu_zCCuizN1lWtwRwZ9vMgOLB9BXLveM",
 };
 
 // 🎬 Load Episode
 function loadEpisode(ep) {
-    videoPlayer.src = `https://drive.google.com/uc?export=download&id=${videoLinks[ep]}`;
+    videoPlayer.src = `https://drive.google.com/file/d/${videoLinks[ep]}/preview`;
+
     videoPlayer.play();
 
     // Highlight active episode
-    document.querySelectorAll('.episode-list li').forEach(btn => btn.classList.remove('active'));
-    document.getElementById(`episode-${ep}`).classList.add('active');
+    document.querySelectorAll(".episode-list li").forEach((btn) =>
+        btn.classList.remove("active")
+    );
+    document.getElementById(`episode-${ep}`).classList.add("active");
+
+    // Update Title Info
+    document.querySelector(".video-info h1").innerText = "SAKAMOTO DAYS";
+    document.querySelector(
+        ".video-info .episode-title"
+    ).innerText = `Episode ${ep}`;
+    document.querySelector(".video-info .description").innerText =
+        "Description for episode " + ep;
 
     // Hide controls initially (like Netflix)
     videoContainer.classList.add("paused");
@@ -56,7 +67,10 @@ document.getElementById("rewind").addEventListener("click", () => {
 
 // ⏩ Fast Forward 10 Seconds
 document.getElementById("fastForward").addEventListener("click", () => {
-    videoPlayer.currentTime = Math.min(videoPlayer.currentTime + 10, videoPlayer.duration);
+    videoPlayer.currentTime = Math.min(
+        videoPlayer.currentTime + 10,
+        videoPlayer.duration
+    );
 });
 
 // 🔊 Volume Mute/Unmute
@@ -87,7 +101,10 @@ document.addEventListener("mousemove", (event) => {
 
 function seek(event) {
     let rect = progressBar.getBoundingClientRect();
-    let percentage = Math.max(0, Math.min(1, (event.clientX - rect.left) / rect.width));
+    let percentage = Math.max(
+        0,
+        Math.min(1, (event.clientX - rect.left) / rect.width)
+    );
     videoPlayer.currentTime = percentage * videoPlayer.duration;
 }
 
