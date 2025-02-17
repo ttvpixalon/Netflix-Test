@@ -29,16 +29,21 @@ body {
     overflow: hidden;
 }
 
-/* 🖥️ Google Drive Video (Clickable!) */
+/* 🖥️ Google Drive Video (Hides Controls Like YouTube) */
 .yt-embed-holder iframe {
-    width: 100%;
+    width: 300%;
     height: 100%;
+    margin-left: -100%;
     border: none;
-    pointer-events: auto; /* 🔥 FIX: Allows interaction with Google Drive controls */
-    user-select: auto;
 }
 
-/* 📏 Progress Bar (Above Controls) */
+/* 🏆 Hide Google Drive UI */
+.yt-embed-holder iframe {
+    pointer-events: none; /* Blocks interaction with the Drive video UI */
+    user-select: none;
+}
+
+/* 📏 Progress Bar */
 .progress-bar-container {
     position: absolute;
     bottom: 65px;
@@ -65,29 +70,6 @@ body {
     pointer-events: none;
 }
 
-/* Progress Bar Scrubber */
-.progress-scrubber {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 12px;
-    height: 12px;
-    background: #ff0000;
-    border-radius: 50%;
-    opacity: 0;
-    transition: opacity 0.2s ease-in-out;
-}
-
-/* Show Scrubber When Hovering */
-.progress-bar-container:hover .progress-scrubber {
-    opacity: 1;
-}
-
-/* Hide Scrubber on Idle */
-.yt-embed-holder.hide-controls .progress-scrubber {
-    opacity: 0;
-}
-
 /* 🎬 Title Info (More Visible & Pop-Out Effect) */
 .video-info {
     position: absolute;
@@ -107,57 +89,6 @@ body {
     transform: translateY(0);
 }
 
-/* "You're Watching" Text */
-.video-info .watching {
-    font-size: 18px;
-    font-weight: 400;
-    opacity: 0.9;
-    margin-bottom: 8px;
-    letter-spacing: 1px;
-    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8);
-}
-
-/* Main Title */
-.video-info h1 {
-    font-size: 52px;
-    font-weight: 800;
-    margin-bottom: 5px;
-    text-shadow: 4px 4px 20px rgba(0, 0, 0, 1), 0px 0px 15px rgba(255, 0, 0, 0.8);
-}
-
-/* Subtitle */
-.video-info .subtitle {
-    font-size: 24px;
-    font-weight: 600;
-    opacity: 0.95;
-    margin-bottom: 10px;
-    text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.9);
-}
-
-/* Episode Title */
-.video-info .episode-title {
-    font-size: 20px;
-    font-weight: 500;
-    margin-bottom: 10px;
-    opacity: 0.9;
-    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
-}
-
-/* Episode Description */
-.video-info .description {
-    font-size: 18px;
-    font-weight: 400;
-    line-height: 1.5;
-    opacity: 1;
-    max-width: 500px;
-    text-shadow: 2px 2px 12px rgba(0, 0, 0, 1);
-}
-
-/* 🏆 Show Title When Paused */
-.yt-embed-holder.paused .video-info {
-    opacity: 1;
-}
-
 /* 🎮 Netflix-Style Controls */
 .controls {
     position: absolute;
@@ -172,24 +103,10 @@ body {
     z-index: 3;
 }
 
-/* 🏆 Hide Controls on Idle */
+/* Hide Controls on Idle */
 .yt-embed-holder.hide-controls .controls {
     opacity: 0;
     pointer-events: none;
-}
-
-/* Left Controls (Play, Rewind, Forward) */
-.controls-left {
-    display: flex;
-    align-items: center;
-    gap: 30px;
-}
-
-/* Right Controls (Next, Episodes, Fullscreen) */
-.controls-right {
-    display: flex;
-    align-items: center;
-    gap: 30px;
 }
 
 /* 🎮 Control Buttons */
