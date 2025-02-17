@@ -34,16 +34,11 @@ body {
     width: 100%;
     height: 100%;
     border: none;
-    pointer-events: none; /* Prevents interaction with Google Drive controls */
-}
-
-/* 🏆 Hide Google Drive Controls */
-.yt-embed-holder iframe {
-    pointer-events: none; /* Disables interaction to prevent controls from showing */
     user-select: none;
+    /* Removed pointer-events: none; so you can interact with the player */
 }
 
-/* 📏 Progress Bar (Placed Above Controls) */
+/* 📏 Progress Bar (Above Controls) */
 .progress-bar-container {
     position: absolute;
     bottom: 65px; /* Adjusted for perfect Netflix-like positioning */
@@ -93,7 +88,7 @@ body {
     opacity: 0;
 }
 
-/* 🎬 Title Info (Now More Visible & Pop-Out Effect) */
+/* 🎬 Title Info (More Visible & Pop-Out Effect) */
 .video-info {
     position: absolute;
     top: 25%;
@@ -122,7 +117,7 @@ body {
     text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8);
 }
 
-/* Main Title (Pops Out) */
+/* Main Title */
 .video-info h1 {
     font-size: 52px;
     font-weight: 800;
@@ -148,7 +143,7 @@ body {
     text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
 }
 
-/* Episode Description (Readable) */
+/* Episode Description */
 .video-info .description {
     font-size: 18px;
     font-weight: 400;
@@ -163,7 +158,7 @@ body {
     opacity: 1;
 }
 
-/* 🎮 True Netflix-Style Controls */
+/* 🎮 Netflix-Style Controls */
 .controls {
     position: absolute;
     bottom: 0;
@@ -187,14 +182,14 @@ body {
 .controls-left {
     display: flex;
     align-items: center;
-    gap: 30px; /* Proper spacing */
+    gap: 30px;
 }
 
 /* Right Controls (Next, Episodes, Fullscreen) */
 .controls-right {
     display: flex;
     align-items: center;
-    gap: 30px; /* Proper spacing */
+    gap: 30px;
 }
 
 /* 🎮 Control Buttons */
@@ -206,11 +201,11 @@ body {
     opacity: 0.8;
 }
 
-/* 🎮 Control Icons (Netflix-Style Visibility) */
+/* 🎮 Control Icons */
 .controls button img {
     width: 32px;
     height: 32px;
-    filter: invert(1) drop-shadow(2px 2px 7px rgba(0, 0, 0, 1)); /* Ensures visibility */
+    filter: invert(1) drop-shadow(2px 2px 7px rgba(0, 0, 0, 1)); 
     transition: 0.3s ease-in-out;
 }
 
