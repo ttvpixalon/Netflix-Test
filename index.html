@@ -9,105 +9,53 @@
 <body>
 
     <div class="yt-embed-holder" id="videoContainer">
-        <!-- 🎥 Google Drive Video Embed (Autoplay Enabled) -->
+        <!-- Google Drive Video Embed -->
         <iframe id="videoPlayer" allowfullscreen></iframe>
 
-        <!-- 🎬 Netflix-Style Title Info -->
-        <div class="video-info">
-            <p class="watching">You're watching</p>
-            <h1>SAKAMOTO DAYS</h1>
-            <p class="subtitle">SAKAMOTO DAYS</p>
-            <p class="episode-title">Episode 1: The Legendary Hit Man</p>
-            <p class="description">
-                Sakamoto enjoys a quiet life in retirement with his family. 
-                But one day, an old colleague demands he return to the assassin world — or face consequences.
-            </p>
+        <!-- Progress Bar (Above Controls) -->
+        <div class="progress-bar-container" id="progressBar">
+            <div class="progress" id="progress"></div>
+            <div class="progress-scrubber" id="scrubber"></div>
         </div>
 
-        <!-- 🎮 Custom Video Controls -->
+        <!-- Custom Video Controls -->
         <div class="controls">
             <div class="controls-left">
                 <button id="playPause">
-                    <img src="play-48.png" alt="Play">
+                    <img src="pause.png" alt="Play/Pause">
                 </button>
                 <button id="rewind">
-                    <img src="rewind.png" alt="Rewind 10s">
+                    <img src="rewind-10s.png" alt="Rewind 10s">
                 </button>
                 <button id="fastForward">
-                    <img src="fast-forward.png" alt="Fast Forward 10s">
+                    <img src="fast-forward-10s.png" alt="Fast Forward 10s">
                 </button>
-                <button id="volume">
-                    <img src="volume.png" alt="Volume">
-                </button>
+                <div class="time-display">
+                    <span id="currentTime">0:00</span> / <span id="totalTime">0:00</span>
+                </div>
             </div>
 
             <div class="controls-right">
-                <button id="next">
-                    <img src="next.png" alt="Next Episode">
+                <button id="volume">
+                    <img src="volume.png" alt="Volume">
                 </button>
-                <button id="episodesBtn">
-                    <img src="episodes.png" alt="Episodes">
+                <button id="subtitles">
+                    <img src="subtitles.png" alt="Subtitles">
+                </button>
+                <button id="speed">
+                    <span>1X</span>
+                </button>
+                <button id="settings">
+                    <img src="settings.png" alt="Settings">
                 </button>
                 <button id="fullscreen">
-                    <img src="maximize.png" alt="Fullscreen">
+                    <img src="fullscreen.png" alt="Fullscreen">
                 </button>
             </div>
         </div>
-
-        <!-- 📊 Progress Bar -->
-        <div class="progress-bar-container" id="progressBar">
-            <div class="progress" id="progress"></div>
-        </div>
     </div>
 
-    <!-- 📺 Episodes Panel -->
-    <div id="episodesMenu" class="episodes-panel">
-        <h2>SAKAMOTO DAYS</h2>
-        <ul>
-            <li data-videoid="16gUkTsEspcONTTKLgc8xLH0vs6XYIjvF">
-                <span class="episode-number">1</span>
-                <div class="episode-info">
-                    <h3>The Legendary Hit Man</h3>
-                    <p>Sakamoto enjoys a quiet life in retirement... but an old colleague demands he return to the assassin world.</p>
-                </div>
-            </li>
-            <li data-videoid="14GlbAUKiWvQWeRoAr3yxmkmnWHyYkGyQ">
-                <span class="episode-number">2</span>
-                <div class="episode-info">
-                    <h3>Vs. Son Hee and Bacho</h3>
-                    <p>The action intensifies as Sakamoto faces new challenges from unexpected enemies.</p>
-                </div>
-            </li>
-            <li data-videoid="1qbhy84QC1zoaXj2aZEyPo_4ItxODCkR2">
-                <span class="episode-number">3</span>
-                <div class="episode-info">
-                    <h3>Welcome to Sugar Park</h3>
-                    <p>A thrilling encounter unfolds as Sakamoto enters new territory filled with dangers.</p>
-                </div>
-            </li>
-        </ul>
-    </div>
-
-    <script>
-        // 🎥 Google Drive Video Links
-        const videoLinks = {
-            1: "16gUkTsEspcONTTKLgc8xLH0vs6XYIjvF",
-            2: "14GlbAUKiWvQWeRoAr3yxmkmnWHyYkGyQ",
-            3: "1qbhy84QC1zoaXj2aZEyPo_4ItxODCkR2"
-        };
-
-        // 🎬 Load Episode & AutoPlay
-        function loadEpisode(ep) {
-            document.getElementById("videoPlayer").src = `https://drive.google.com/file/d/${videoLinks[ep]}/preview?autoplay=1`;
-            
-            // Highlight Active Episode
-            document.querySelectorAll(".episodes-panel li").forEach(btn => btn.classList.remove("active"));
-            document.querySelector(`[data-videoid="${videoLinks[ep]}"]`).classList.add("active");
-        }
-
-        // 🎥 Auto-Load First Episode
-        loadEpisode(1);
-    </script>
+    <script src="script.js"></script>
 
 </body>
 </html>
