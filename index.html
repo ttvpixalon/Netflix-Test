@@ -9,20 +9,29 @@
 <body>
 
     <div class="yt-embed-holder" id="videoContainer">
-        <!-- Google Drive Video Embed -->
-        <iframe id="videoPlayer" allowfullscreen></iframe>
+        <iframe id="videoPlayer"
+            src="https://drive.google.com/file/d/16gUkTsEspcONTTKLgc8xLH0vs6XYIjvF/preview"
+            allow="autoplay"
+            allowfullscreen>
+        </iframe>
 
-        <!-- Progress Bar (Above Controls) -->
-        <div class="progress-bar-container" id="progressBar">
-            <div class="progress" id="progress"></div>
-            <div class="progress-scrubber" id="scrubber"></div>
+        <!-- Netflix-Style Title Info -->
+        <div class="video-info">
+            <p class="watching">You're watching</p>
+            <h1>SAKAMOTO DAYS</h1>
+            <p class="subtitle">SAKAMOTO DAYS</p>
+            <p class="episode-title">Episode 1: The Legendary Hit Man</p>
+            <p class="description">
+                Sakamoto enjoys a quiet life in retirement with his family. 
+                But one day, an old colleague demands he return to the assassin world — or face consequences.
+            </p>
         </div>
 
         <!-- Custom Video Controls -->
         <div class="controls">
             <div class="controls-left">
                 <button id="playPause">
-                    <img src="pause-48.png" alt="Play/Pause">
+                    <img src="play-48.png" alt="Play">
                 </button>
                 <button id="rewind">
                     <img src="rewind.png" alt="Rewind 10s">
@@ -30,32 +39,31 @@
                 <button id="fastForward">
                     <img src="fast-forward.png" alt="Fast Forward 10s">
                 </button>
-                <div class="time-display">
-                    <span id="currentTime">0:00</span> / <span id="totalTime">0:00</span>
-                </div>
-            </div>
-
-            <div class="controls-right">
                 <button id="volume">
                     <img src="volume.png" alt="Volume">
                 </button>
-                <button id="subtitles">
-                    <img src="subtitles.png" alt="Subtitles">
+            </div>
+
+            <div class="controls-right">
+                <button id="next">
+                    <img src="next.png" alt="Next Episode">
                 </button>
-                <button id="speed">
-                    <span>1X</span>
-                </button>
-                <button id="settings">
-                    <img src="settings.png" alt="Settings">
+                <button id="episodesBtn">
+                    <img src="episodes.png" alt="Episodes">
                 </button>
                 <button id="fullscreen">
                     <img src="maximize.png" alt="Fullscreen">
                 </button>
             </div>
         </div>
+
+        <!-- Progress Bar -->
+        <div class="progress-bar-container" id="progressBar">
+            <div class="progress" id="progress"></div>
+        </div>
     </div>
 
-    <script src="script.js"></script>
+<script src="script.js"></script>
 
 </body>
 </html>

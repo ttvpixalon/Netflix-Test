@@ -8,45 +8,121 @@
     box-sizing: border-box;
     font-family: 'Inter', sans-serif;
 }
+
 body {
     background-color: #000;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    overflow: hidden; /* Prevents scrolling */
+    overflow: hidden;
 }
 
-/* 📺 Video Container */
+/* 📺 Full-Screen Video Container */
 .yt-embed-holder {
     width: 100vw;
     height: 100vh;
     position: absolute;
     top: 0;
     left: 0;
+    border-radius: 0;
+    box-shadow: none;
     overflow: hidden;
-    aspect-ratio: 16/9;
-    pointer-events: none; /* Prevents clicking Drive UI */
 }
 
-/* 🖥️ Google Drive Video (Fully Hidden UI) */
+/* 🎥 Hide Google Drive UI */
 .yt-embed-holder iframe {
     width: 300%;
     height: 100%;
     margin-left: -100%;
     border: none;
-    pointer-events: auto; /* Allows interaction with custom controls */
 }
 
-/* 🚀 Hide Google Drive UI Even in Fullscreen */
-iframe::cue {
-    display: none !important;
-    visibility: hidden !important;
-    opacity: 0 !important;
+/* 📏 Progress Bar (Above Controls) */
+.progress-bar-container {
+    position: absolute;
+    bottom: 65px;
+    left: 0;
+    width: 100%;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    transition: opacity 0.3s ease-in-out, height 0.2s ease-in-out;
+    opacity: 1;
 }
 
-iframe::-webkit-media-controls {
-    display: none !important;
-    visibility: hidden !important;
-    opacity: 0 !important;
+/* Progress Bar Fill */
+.progress {
+    width: 0%;
+    height: 100%;
+    background: #ff0000;
+    transition: width 0.2s ease-in-out;
+}
+
+/* Hide Progress Bar on Idle */
+.yt-embed-holder.hide-controls .progress-bar-container {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* 🎬 Title Info */
+.video-info {
+    position: absolute;
+    top: 25%;
+    left: 5%;
+    color: white;
+    max-width: 600px;
+    opacity: 0;
+    z-index: 3;
+    transition: opacity 0.4s ease-in-out, transform 0.3s ease-in-out;
+    transform: translateY(10px);
+}
+
+/* Show Title When Paused */
+.yt-embed-holder.paused .video-info {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 🎮 True Netflix-Style Controls */
+.controls {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    opacity: 1;
+    z-index: 3;
+}
+
+/* Hide Controls on Idle */
+.yt-embed-holder.hide-controls .controls {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* 🎮 Control Buttons */
+.controls button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+    opacity: 0.8;
+}
+
+/* 🎮 Control Icons */
+.controls button img {
+    width: 32px;
+    height: 32px;
+    filter: invert(1) drop-shadow(2px 2px 7px rgba(0, 0, 0, 1));
+    transition: 0.3s ease-in-out;
+}
+
+/* Hover Effect */
+.controls button:hover img {
+    filter: invert(1) brightness(0.8) drop-shadow(2px 2px 7px rgba(0, 0, 0, 1));
+    transform: scale(1.1);
 }
