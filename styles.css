@@ -19,7 +19,7 @@ body {
 
 /* 📺 Video Container */
 .yt-embed-holder {
-    width: 100%;
+    width: 100vw;
     height: 100vh;
     position: absolute;
     top: 0;
@@ -29,11 +29,24 @@ body {
     pointer-events: none; /* Prevents clicking Drive UI */
 }
 
-/* 🖥️ Google Drive Video (Hidden UI) */
+/* 🖥️ Google Drive Video (Fully Hidden UI) */
 .yt-embed-holder iframe {
     width: 300%;
     height: 100%;
     margin-left: -100%;
     border: none;
     pointer-events: auto; /* Allows interaction with custom controls */
+}
+
+/* 🚀 Hide Google Drive UI Even in Fullscreen */
+iframe::cue {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+}
+
+iframe::-webkit-media-controls {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
 }
