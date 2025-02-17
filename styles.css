@@ -14,7 +14,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    overflow: hidden; /* Prevents scrolling */
+    overflow: hidden;
 }
 
 /* 📺 Video Container */
@@ -29,19 +29,19 @@ body {
     overflow: hidden;
 }
 
-/* 🖥️ Google Drive Video */
+/* 🖥️ Google Drive Video (Clickable!) */
 .yt-embed-holder iframe {
     width: 100%;
     height: 100%;
     border: none;
-    user-select: none;
-    /* Removed pointer-events: none; so you can interact with the player */
+    pointer-events: auto; /* 🔥 FIX: Allows interaction with Google Drive controls */
+    user-select: auto;
 }
 
 /* 📏 Progress Bar (Above Controls) */
 .progress-bar-container {
     position: absolute;
-    bottom: 65px; /* Adjusted for perfect Netflix-like positioning */
+    bottom: 65px;
     left: 0;
     width: 100%;
     height: 6px;
@@ -98,7 +98,7 @@ body {
     opacity: 0;
     z-index: 3;
     transition: opacity 0.4s ease-in-out, transform 0.3s ease-in-out;
-    transform: translateY(10px); /* Pop-in effect */
+    transform: translateY(10px);
 }
 
 /* Show Title When Paused */
